@@ -42,30 +42,3 @@ Get-Mailbox | foreach{ Remove-MailboxFolderPermission -Identity meetingroom1:\ca
 
 #Everyone access to one calendar
 Get-Mailbox | foreach{ Remov-MailboxFolderPermission -Identity meetingroom2:\calendar -User $($_.UserPrincipalName) -AccessRights Editor }
-
-#teams meeting login 
-Set-ExecutionPolicy RemoteSigned 
-
- 
-Import-Module SkypeOnlineConnector 
- 
-
-$session = New-CsOnlineSession -OverrideAdminDomain "dovetailit.onmicrosoft.com" -verbose
-  
-   
-#MeetingRoom 
-
-Get-calendarprocessing calendar@whatever.org  | fl
-set-calendarprocessing calendar@whatever.org  -DeleteNonCalendarItems $False
-
-
-
-
-Import-PSSession $session
-
-
-
-
-Set-CalendarProcessing -Identity Grooverider -AddOrganizerToSubject $false -OrganizerInfo $true -DeleteAttachments $true -DeleteComments $false -DeleteSubject $false -RemovePrivateProperty $false
-
-Get-CalendarProcessing -Identity Grooverider | Format-List identity,deletesubject,addorganizertosubject,DeleteComments,RemovePrivateProperty
